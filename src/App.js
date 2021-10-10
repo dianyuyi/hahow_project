@@ -1,24 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import React from 'react';
+import ListScreen from './screens/ListScreen'
+import ProfileScreen from './screens/ProfileScreen';
+
+import {
+  ResetStyle,
+  GlobalStyle,
+} from "./styles/common/globalStyle";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <ResetStyle />
+      <GlobalStyle />
+      <Router>
+        <Route exact path='/' render={() => <Redirect to='/heroes' />} />
+        <Route path='/heroes' component={ListScreen} />
+        <Route path='/heroes/:heroId' component={ProfileScreen} />
+      </Router>
+    </>
   );
 }
 
