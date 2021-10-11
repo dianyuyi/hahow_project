@@ -8,17 +8,14 @@ import { AbilityCounter } from '../components/AbilityCounter';
 import {Loading} from '../components/Loading'
 
 
-const ProfileScreen = (props) => {
+const ProfileScreen = () => {
   const heroProfile = useSelector((state) => state.heroProfile);
   const updateProfile = useSelector((state) => state.updateProfile);
-
   const { id, profile, loading, error, availablePoints } = heroProfile;
   const { upLoading } = updateProfile
 
-
   const dispatch = useDispatch();
   const { heroId } = useParams();
-
 
   useEffect(() => {
     dispatch(getHeroProfile(heroId));
@@ -72,8 +69,8 @@ const ProfileScreen = (props) => {
           </StatusWrapper>
 
         </ProfileContainer>
-    </Outer>
-    )
+      </Outer>
+      )
     }
     </>
   )

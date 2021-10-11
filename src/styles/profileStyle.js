@@ -28,14 +28,10 @@ export const Wrapper = styled.div`
 `;
 
 export const StatusWrapper = styled(Wrapper)`
-
-width: 100%;
-padding: 0 ${variables.gutter};
-display: flex;
-flex-wrap: wrap;
-justify-content: flex-end;
-align-items: flex-end;
-
-  @media only screen and (${variables.breakpointPhone}) {
-  }
+  width: 100%;
+  padding: 0 ${variables.gutter};
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: flex-end;
 `;

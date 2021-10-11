@@ -43,12 +43,9 @@ const ListScreen = () => {
           {heroes.map((hero)=>{
             return (
               <ListWrapper onClick={()=> handleHeroSelect(hero.id)} key={hero.id} isSelect={currentId===hero.id}>
-              <ListCard to={`/heroes/${hero.id}`}
-              >
+              <ListCard to={`/heroes/${hero.id}`} >
                 <img className={`image`} src={hero.image} alt={hero.name}/>
                 <p className={`name`}>{hero.name}</p>
-                {/* <ListAvatar src={hero.image} alt={hero.name}/>
-                <ListTitle>{hero.name}</ListTitle> */}
               </ListCard>
               </ListWrapper>
             )

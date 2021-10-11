@@ -8,6 +8,7 @@ export const Outer = styled.div`
   height: 100%;
   text-align: center;
 `
+
 export const ListContainer = styled.div`
   max-width: 1024px;
   height: 100%;
@@ -24,6 +25,7 @@ export const ListContainer = styled.div`
     flex-wrap: wrap;
   }
 `;
+
 export const ListWrapper = styled.div`
   flex-basis: 25%;
   border: ${({ isSelect }) =>

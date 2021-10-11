@@ -6,7 +6,6 @@ export const CounterContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1rem;
-  
 `;
 
 export const Ability = styled.p`

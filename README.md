@@ -1,70 +1,85 @@
-# Getting Started with Create React App
+# Hahow_Project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Quick Start
 
-## Available Scripts
+- [Demo](https://dianyuyi-hahowproject.netlify.app/heroes)
+- 本機執行：
 
-In the project directory, you can run:
+```shell
+git clone https://github.com/dianyuyi/hahow_project.git
+cd hahow_project
+yarn
+yarn start
+# open localhost:3000
+```
 
-### `yarn start`
+更多關於React的原始碼指令請見[CONTRIBUTING.md](./CONTRIBUTING.md)。
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## 架構規劃
 
-### `yarn test`
+### 目錄結構設計
+```bash
+.
+├── public/                      
+├── src/
+│  ├── actions/                    # Redux actions
+│  ├── components/              
+│  │  ├── AbilityCounter.js        # Ability counter
+│  │  ├── Loading.js               # Loading for data fetching
+│  │  └── SubmitButton.js          # Update Hero profile
+│  ├── reducers/                   # Redux reducers
+│  ├── screens/                
+│  │  ├── ListScreen/              # Display Hero list
+│  │  └── ProfileScreen.js         # Display Hero Profile
+│  ├── styles/                     # All styles
+│  ├── store.js                    # Redux store and middlewares
+│  ├── App.js                      
+│  └── index.js
+├── LICENSE
+├── package.json
+├── CONTRIBUTING.md
+├── README.md
+└── yarn.lock
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Web顯示結構
 
-### `yarn build`
+最初原本想將`List`和`Profile`作為Form screen包在一個Main Screen中，但因為專案規模小，後來決定各自獨立狀態。變成在`App.js`下，`ListScreen`和`ProfileScreen`並列的狀態。
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 狀態管理
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- 使用 Redux 管理。狀態由`store.js`, `/reducers`, `/actions`處理，在Screens和Components中則利用`useSelector`和`useDispatch`進行存取。
+- 透過`action`獲取資料時，前端的畫面會根據`loading`, `error`及回傳的`data`切換顯示。
 
-### `yarn eject`
+### 第三方 library 的使用及簡介
+- `redux`
+  - 管理跨組件狀態傳遞的重要library，與 `react-redux`搭配，用來保持取用資料時的一致性。使狀態可以與 react 進行整合，除了可以集中管理應用的狀態、避免將狀態一層一層傳遞外，也可讓狀態相關的領域邏輯與非同步行為從 React components 中抽離出來。
+- `redux-thunk`
+  - 處理非同步的Redux Middleware。
+- `axios`
+  - 支援Promise API的HTTP library，瀏覽器和`node.js`都能使用。而且本身有支援JSON自動轉換和CSRF的支援。
+- `styled-components`
+  - CSS-in-JS 的方案之一。選擇它而非emotion或styled-system，是因為個人習慣使用起來更加直覺。雖然也可以另外搭配Tailwind，不過小專案獨立使用的自由度更高。可以傳入變數當成小型的HOC來用。
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 寫註解的原則
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+通常會盡可能避免，用命名和有層次的編排方式來增加可讀性。但如果是未完成的功能、暫停開發/尚待優化的功能、某些較難找到對應位置的變數，就會寫註解幫助自己或其他人快速找到程式碼用途。
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## 專案中遇到的困難、問題，以及解決的方法
 
-## Learn More
+### 初始架構規劃和library選擇
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+因為做過的專案有類似架構，最初帶入APP的習慣來寫，但後來發現小專案弄太複雜是自找麻煩，於是放棄了`redux-form`。另一方面，小專案也代表能自我實驗的東西很多，所以沒有選擇工作上常用的Connect，改用`useSelector`, `useDispatch`來體驗不同Component操作上的差異。
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+### Hero Card 的Selected Color
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+當幾乎所有功能都完成，才想起要亡羊補牢的東西。因為`List`和`Profile`已經是各自獨立的頁面，就單純用`useState`來記錄`heroId`，順便用`styled-componemts`的特性控制style變化。
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Hero 能力值不能小於零
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+當專案已經Deploy後，才驚覺這條應該是指`單一能力值不能為零`才對。原本引入`reselect`想在reducer中解決，但仔細想想又發現這不是計算而是個boolean的問題，於是用最簡單的土方法`some`解決了。可惜能力值裡沒有DEF，不然把其他能力壓榨成零來點出血牛還是合理的。

@@ -8,8 +8,6 @@ import {
   INCREASE_ABILITY
 } from "../actions/heroProfile";
 
-
-//state only for ability
 const abilityReducer = (state, action) => {
   switch (action.type) {
     case INCREASE_ABILITY:
